@@ -33,7 +33,7 @@ show:
 
 docker:
 	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAPSHOT.jar ws-sdk/ws/bin/dpppt-backend-sdk-ws-1.0.0.jar
-	docker build -t 979586646521.dkr.ecr.eu-west-1.amazonaws.com/ubiquevscovid19-ws:test ws-sdk/
+	docker build -t noiapp/noiapp-backend:develop ws-sdk/
 	
 
 
