@@ -26,3 +26,6 @@ hs_err_pid*
 **/.project
 **/org.eclipse*
 **/.classpath
+ws-sdk/ws/conf/dpppt-backend-sdk-ws-logback.xml
+
+ws-sdk/ws/conf/dpppt-backend-sdk-ws.properties

@@ -81,8 +81,10 @@ cp dpppt-backend-sdk/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAP
 cd ws-sdk && docker build -t noiapp/noiapp-backend:develop .
 ```
 
+For development using an in-memory H2 database you can run:
+
 ```bash
-docker run -p 80:8080 noiapp/noiapp-backend:develop
+docker run -p 80:8080 -e JAVA_OPTS="-Dspring.profiles.active=dev" noiapp/noiapp-backend:develop
  ```
 
 ### Makefile
@@ -100,7 +102,11 @@ To build the docker image run
 make docker-build
 ```
 
+### Test hello messge
 
+```
+curl -XGET http://localhost/v1
+```
 
 ## License
 This project is licensed under the terms of the MPL 2 license. See the [LICENSE](LICENSE) file.
