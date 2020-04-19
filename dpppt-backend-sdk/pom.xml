@@ -134,7 +134,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/DP-3T/dp3t-sdk-backend</url>
+			<url>https://maven.pkg.github.com/noiapp/noiapp-backend</url>
 		</repository>
 	</distributionManagement>
 </project>
