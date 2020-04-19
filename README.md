@@ -73,15 +73,16 @@ java -jar dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-*.jar
 The dockerfile includes a base jdk image to run the jar. To actually build the docker container, you need to place the generated jar in the bin folder.
 
 ```bash
-cp dpppt-sdk-backend/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAPSHOT.jar ws-sdk/ws/bin/dpppt-backend-sdk-ws-1.0.0
+cd ..
+cp dpppt-backend-sdk/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAPSHOT.jar ws-sdk/ws/bin/dpppt-backend-sdk-ws-1.0.0
 ```
 
 ```bash
-cd ws-sdk && docker build -t <the-tag-we-use> .
+cd ws-sdk && docker build -t noiapp/noiapp-backend:develop .
 ```
 
 ```bash
-docker run -p 80:8080 <the-tag-we-use>
+docker run -p 80:8080 noiapp/noiapp-backend:develop
  ```
 
 ### Makefile
