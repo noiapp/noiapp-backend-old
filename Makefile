@@ -33,6 +33,7 @@ show:
 
 docker:
 	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAPSHOT.jar ws-sdk/ws/bin/dpppt-backend-sdk-ws-1.0.0.jar
+	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/src/main/resources/logback.xml ws-sdk/ws/conf/dpppt-backend-sdk-ws-logback.xml
 	docker build -t noiapp/noiapp-backend:develop ws-sdk/
 	
 
