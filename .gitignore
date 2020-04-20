@@ -32,3 +32,4 @@ ws-sdk/ws/conf/dpppt-backend-sdk-ws.properties
 
 *.iml
 .idea
+**/target/
