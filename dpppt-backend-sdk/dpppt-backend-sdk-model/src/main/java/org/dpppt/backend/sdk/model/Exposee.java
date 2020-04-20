@@ -12,11 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Exposee {
 	@JsonIgnore
-	private Integer Id;
+	private Integer id;
 
 	@NotNull
 	private String key;
 
+	// TODO MAKE LOCAL DATE??
 	@NotNull
 	private String onset;
 
@@ -30,11 +31,11 @@ public class Exposee {
 
 	@JsonIgnore
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getOnset() {
