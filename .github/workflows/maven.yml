@@ -8,6 +8,7 @@ on:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+    types: [ opened, reopened ]
 
 jobs:
   build:
@@ -32,6 +33,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Publish to GitHub Packages Apache Maven
+      if: github.event_name == 'push'
       run: mvn deploy --file dpppt-backend-sdk/pom.xml -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
