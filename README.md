@@ -2,6 +2,14 @@
 ![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)
 ![Java CI with Maven](https://github.com/noiapp/noiapp-backend/workflows/Java%20CI%20with%20Maven/badge.svg)
 
+### Discussion and chat
+
+While daily chat is on slack, the discussion on core topics like architecture is on google groups.
+
+Slack: [![Slack](https://img.shields.io/badge/chat-slack-ff69b4.svg)](https://noiapp.slack.com/)
+
+Google: [![Google groups](https://img.shields.io/badge/discuss-google%20groups-red)](https://groups.google.com/forum/#!forum/noiapp)
+
 This is a fork of [https://github.com/DP-3T/dp3t-sdk-backend.git](https://github.com/DP-3T/dp3t-sdk-backend.git) for the [NoiApp](https://github.com/noiapp/noiapp)
 
 ## DP3T
