@@ -38,7 +38,7 @@ public class JDBCDPPPTDataServiceImpl implements DPPPTDataService {
         String sql;
         if (dbType.equals(PGSQL)) {
             sql = "insert into t_exposed (key, onset, app_source) values (:key, to_date(:onset, 'yyyy-MM-dd'), :app_source)"
-                + " on conflict on constraint key do nothing";
+                + " on conflict on constraint key do update set onset = excluded.onset, app_source = excluded.app_source";
         } else {
             sql = "merge into t_exposed using (values(cast(:key as varchar(10000)), cast(:onset as date), cast(:app_source as varchar(50))))"
                 + " as vals(key, onset, app_source) on t_exposed.key = vals.key"
