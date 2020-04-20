@@ -29,9 +29,6 @@ hs_err_pid*
 ws-sdk/ws/conf/dpppt-backend-sdk-ws-logback.xml
 ws-sdk/ws/conf/dpppt-backend-sdk-ws.properties
 
-# maven
-target
-
-# idea
 *.iml
 .idea
+**/target/
