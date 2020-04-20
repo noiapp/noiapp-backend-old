@@ -31,3 +31,7 @@ ws-sdk/ws/conf/dpppt-backend-sdk-ws.properties
 
 # maven
 target
+
+# idea
+*.iml
+.idea
