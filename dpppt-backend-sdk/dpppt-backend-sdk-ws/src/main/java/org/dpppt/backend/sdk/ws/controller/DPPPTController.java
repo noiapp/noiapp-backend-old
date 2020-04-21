@@ -1,36 +1,25 @@
 package org.dpppt.backend.sdk.ws.controller;
 
-import java.time.Duration;
-import java.util.Base64;
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.dpppt.backend.sdk.data.DPPPTDataService;
 import org.dpppt.backend.sdk.data.EtagGeneratorInterface;
 import org.dpppt.backend.sdk.model.ExposedOverview;
 import org.dpppt.backend.sdk.model.Exposee;
 import org.dpppt.backend.sdk.model.ExposeeRequest;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+
+import javax.validation.Valid;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/v1")
@@ -41,8 +30,7 @@ public class DPPPTController {
 	private final String appSource;
 	private final int exposedListCacheContol;
 
-	private static final DateTimeFormatter DAY_DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd")
-			.withZone(DateTimeZone.UTC);
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	private static final Logger logger = LoggerFactory.getLogger(DPPPTController.class);
 
@@ -55,13 +43,13 @@ public class DPPPTController {
 	}
 
 	@CrossOrigin(origins = { "https://editor.swagger.io" })
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@GetMapping(value = "")
 	public @ResponseBody String hello() {
 		return "Hello from DP3T WS";
 	}
 
 	@CrossOrigin(origins = { "https://editor.swagger.io" })
-	@RequestMapping(value = "/exposed", method = RequestMethod.POST)
+	@PostMapping(value = "/exposed")
 	public @ResponseBody ResponseEntity<String> addExposee(@Valid @RequestBody ExposeeRequest exposeeRequest,
 			@RequestHeader(value = "User-Agent", required = true) String userAgent) {
 		if (isValidBase64(exposeeRequest.getKey())) {
@@ -77,10 +65,10 @@ public class DPPPTController {
 	}
 
 	@CrossOrigin(origins = { "https://editor.swagger.io" })
-	@RequestMapping(value = "/exposed/{dayDateStr}")
-	public @ResponseBody ResponseEntity<ExposedOverview> getExposed(@PathVariable String dayDateStr,
+	@GetMapping(value = "/exposed/{dayDate}")
+	public @ResponseBody ResponseEntity<ExposedOverview> getExposed(
+			@PathVariable @DateTimeFormat(pattern = DATE_PATTERN) LocalDate dayDate,
 			WebRequest request) {
-		DateTime dayDate = DAY_DATE_FORMATTER.parseDateTime(dayDateStr);
 		int max = dataService.getMaxExposedIdForDay(dayDate);
 		String etag = etagGenerator.getEtag(max);
 		if (request.checkNotModified(etag)) {
