@@ -7,7 +7,6 @@
 package org.dpppt.backend.sdk.data;
 
 import org.dpppt.backend.sdk.model.Exposee;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,7 +14,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JDBCDPPPTDataServiceImpl implements DPPPTDataService {
@@ -53,22 +53,22 @@ public class JDBCDPPPTDataServiceImpl implements DPPPTDataService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Exposee> getSortedExposedForDay(DateTime day) {
-        DateTime dayMidnight = day.minusMillis(day.getMillisOfDay());
+    public List<Exposee> getSortedExposedForDay(LocalDate day) {
+        LocalDateTime dayMidnight = day.atStartOfDay();
         String sql = "select pk_exposed_id, key, to_char(onset, 'yyyy-MM-dd') as onset_string from t_exposed where received_at >= :dayMidnight and received_at < :nextDayMidnight order by pk_exposed_id desc";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("dayMidnight", dayMidnight.toDate());
-        params.addValue("nextDayMidnight", dayMidnight.plusDays(1).toDate());
+        params.addValue("dayMidnight", dayMidnight);
+        params.addValue("nextDayMidnight", dayMidnight.plusDays(1));
         return jt.query(sql, params, new ExposeeRowMapper());
     }
 
     @Override
     @Transactional(readOnly = true)
-    // FIXME replace JodaTime with java8
-    public Integer getMaxExposedIdForDay(DateTime day) {
+    public Integer getMaxExposedIdForDay(LocalDate day) {
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("dayMidnight", day.toDate());
-        params.addValue("nextDayMidnight", day.plusDays(1).toDate());
+        LocalDateTime dayMidnight = day.atStartOfDay();
+        params.addValue("dayMidnight", dayMidnight);
+        params.addValue("nextDayMidnight", dayMidnight.plusDays(1));
         String sql = "select max(pk_exposed_id) from t_exposed where received_at >= :dayMidnight and received_at < :nextDayMidnight";
         // FIXME USE LONG?
         Integer maxId = jt.queryForObject(sql, params, Integer.class);
