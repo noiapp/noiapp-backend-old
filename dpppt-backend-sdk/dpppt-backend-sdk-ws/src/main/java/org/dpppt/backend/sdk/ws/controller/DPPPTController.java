@@ -7,6 +7,7 @@ import org.dpppt.backend.sdk.model.Exposee;
 import org.dpppt.backend.sdk.model.ExposeeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Base64;
@@ -34,8 +36,10 @@ public class DPPPTController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DPPPTController.class);
 
-	public DPPPTController(DPPPTDataService dataService, EtagGeneratorInterface etagGenerator, String appSource,
-			int exposedListCacheControl) {
+	public DPPPTController(DPPPTDataService dataService,
+						   EtagGeneratorInterface etagGenerator,
+						   @Value("${ws.app.source}") String appSource,
+						   @Value("${ws.exposedlist.cachecontrol: 5}") int exposedListCacheControl) {
 		this.dataService = dataService;
 		this.appSource = appSource;
 		this.etagGenerator = etagGenerator;
