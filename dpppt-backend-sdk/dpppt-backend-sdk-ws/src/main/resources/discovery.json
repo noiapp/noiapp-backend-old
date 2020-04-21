@@ -1,0 +1,10 @@
+{
+  "applications": [
+    {
+      "appId": "it.noiapp.demo",
+      "description": "This is the demo app of the NOIAPP SDK",
+      "backendBaseUrl": "https://protetti.app/",
+      "contact": "NoiApp"
+    }
+  ]
+}
