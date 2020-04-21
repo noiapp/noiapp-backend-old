@@ -3,13 +3,11 @@ package org.dpppt.backend.sdk.data;
 import org.assertj.core.api.Assertions;
 import org.dpppt.backend.sdk.model.Exposee;
 import org.flywaydb.core.Flyway;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -129,7 +127,7 @@ public abstract class AbstractJDBCDPPPTDataServiceImplIT {
         }
 
         // WHEN
-        final List<Exposee> sortedExposedForDay = target.getSortedExposedForDay(DateTime.now());
+        final List<Exposee> sortedExposedForDay = target.getSortedExposedForDay(LocalDate.now());
 
         // THEN
         Assertions.assertThat(sortedExposedForDay).hasSize(2);
@@ -141,7 +139,7 @@ public abstract class AbstractJDBCDPPPTDataServiceImplIT {
     void shouldReturnEmptyListForGetSortedExposedForDay() {
 
         // WHEN
-        final List<Exposee> sortedExposedForDay = target.getSortedExposedForDay(DateTime.now());
+        final List<Exposee> sortedExposedForDay = target.getSortedExposedForDay(LocalDate.now());
 
         // THEN
         Assertions.assertThat(sortedExposedForDay).isEmpty();
@@ -168,7 +166,7 @@ public abstract class AbstractJDBCDPPPTDataServiceImplIT {
         }
 
         // WHEN
-        final Integer maxExposedIdForDay = target.getMaxExposedIdForDay(DateTime.now());
+        final Integer maxExposedIdForDay = target.getMaxExposedIdForDay(LocalDate.now());
 
         // THEN
         try (
@@ -185,7 +183,7 @@ public abstract class AbstractJDBCDPPPTDataServiceImplIT {
     void shouldGetZeroForGetMaxExposedIdForDay() {
 
         // WHEN
-        final Integer maxExposedIdForDay = target.getMaxExposedIdForDay(DateTime.now());
+        final Integer maxExposedIdForDay = target.getMaxExposedIdForDay(LocalDate.now());
 
         // THEN
         Assertions.assertThat(maxExposedIdForDay).isEqualTo(0);
