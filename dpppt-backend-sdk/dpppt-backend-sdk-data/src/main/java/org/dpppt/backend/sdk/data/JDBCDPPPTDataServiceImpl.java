@@ -37,12 +37,18 @@ public class JDBCDPPPTDataServiceImpl implements DPPPTDataService {
     public void upsertExposee(Exposee exposee, String appSource) {
         String sql;
         if (dbType.equals(PGSQL)) {
-            sql = "insert into t_exposed (key, onset, app_source) values (:key, to_date(:onset, 'yyyy-MM-dd'), :app_source)"
-                + " on conflict on constraint key do nothing";
+            sql = "with upsert as (" +
+                "update t_exposed set onset=to_date(:onset, 'yyyy-MM-dd'), " +
+                "app_source=:app_source where key=:key " +
+                "returning *)";
+            sql += "insert into t_exposed (key, onset, app_source) " +
+                "select :key, to_date(:onset, 'yyyy-MM-dd'), :app_source "
+                + "where not exists (select * from upsert)";
         } else {
             sql = "merge into t_exposed using (values(cast(:key as varchar(10000)), cast(:onset as date), cast(:app_source as varchar(50))))"
                 + " as vals(key, onset, app_source) on t_exposed.key = vals.key"
-                + " when not matched then insert (key, onset, app_source) values (vals.key, vals.onset, vals.app_source)";
+                + " when not matched then insert (key, onset, app_source) values (vals.key, vals.onset, vals.app_source)"
+                + " when matched then update set app_source=vals.app_source, onset=vals.onset";
         }
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("key", exposee.getKey());
