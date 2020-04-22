@@ -56,7 +56,7 @@ The SDK-Backend provides an interface to publish exposed keys and get a list of 
 
 > Note that the requests on the image are not the actual endpoints in the reference implementation. They differ in the picture to show the possible separation of the two requests. For the actual enpoint paths refer to the backend documentation further down (e.g. PDF or OpenAPI).
 
-![](documentation/img/dp3t-backend.svg)
+![](documentation/img/dp3t-backend.png)
 
 ### General
 This repository contains a backend implementation (webservice) written with Spring Boot, that implements the specification of the Decentralized Privacy-Preserving Proximity Tracing system.
