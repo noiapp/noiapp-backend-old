@@ -6,12 +6,12 @@ services:
     restart: unless-stopped
     environment:
       - _JAVA_OPTIONS=-Xmx1024m -Xms1024m -Duser.timezone=UTC
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=prod,httplog
       - DATASOURCE_URL=jdbc:postgresql://noiapp-database:5432/noiapp
       - DATASOURCE_USERNAME=noiapp
       - DATASOURCE_PASSWORD=noiapp
     ports:
-      - 80:8080
+      - 127.0.0.1:80:8080
     depends_on:
       - noiapp-database
 
@@ -22,9 +22,3 @@ services:
       - POSTGRES_DB=noiapp
       - POSTGRES_USER=noiapp
       - POSTGRES_PASSWORD=noiapp
-
-  adminer:
-    image: adminer
-    restart: unless-stopped
-    ports:
-      - 8181:8080
