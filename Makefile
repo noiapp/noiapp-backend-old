@@ -14,7 +14,7 @@ no: clean updateproject swagger la la2
 docker-build: updateproject docker
 
 updateproject:
-	mvn -f dpppt-backend-sdk/pom.xml install
+	mvn -f dpppt-backend-sdk/pom.xml clean package
 	#cp dpppt-backend-sdk/dpppt-backend-sdk-ws/generated/swagger/swagger.yaml documentation/yaml/sdk.yaml
 
 swagger:
@@ -33,8 +33,9 @@ show:
 
 docker:
 	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-1.0.0-SNAPSHOT.jar ws-sdk/ws/bin/dpppt-backend-sdk-ws-1.0.0.jar
+	rm -f ws-sdk/ws/conf/*
 	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/src/main/resources/logback.xml ws-sdk/ws/conf/dpppt-backend-sdk-ws-logback.xml
-	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/src/main/resources/application.properties ws-sdk/ws/conf/dpppt-backend-sdk-ws.properties
+	cp dpppt-backend-sdk/dpppt-backend-sdk-ws/src/main/resources/*.properties ws-sdk/ws/conf
 	docker build -t noiapp/noiapp-backend:develop ws-sdk/
 	
 
