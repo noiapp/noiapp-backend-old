@@ -4,7 +4,6 @@ services:
   noiapp-backend:
     image: noiapp/noiapp-backend:develop
     restart: unless-stopped
-    hostname: noiapp-backend
     environment:
       - _JAVA_OPTIONS=-Xmx1024m -Xms1024m -Duser.timezone=UTC
       - SPRING_PROFILES_ACTIVE=prod,httplog
@@ -27,7 +26,7 @@ services:
   noiapp-caddy:
     build: caddy
     restart: unless-stopped
-    hostname: demo.protetti.app
+    #hostname: demo.protetti.app
     ports:
       - 443:443
     volumes:

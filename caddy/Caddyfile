@@ -1,9 +1,10 @@
-{
-admin demo.protetti.app:2019
-}
-demo.protetti.app:443 {
+#{
+#admin localhost:2019
+#}
+localhost:443 {
 reverse_proxy noiapp-backend:8080
-  #tls /etc/letsencrypt/live/protetti.app/fullchain.pem /etc/letsencrypt/live/protetti.app/privkey.pem
+  # use your own certificate and key
+  # tls /etc/letsencrypt/live/protetti.app/fullchain.pem /etc/letsencrypt/live/protetti.app/privkey.pem
   # use tls internal for dev environments (https://caddyserver.com/docs/caddyfile/directives/tls)
   tls internal
   log {
