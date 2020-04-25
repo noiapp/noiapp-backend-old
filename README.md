@@ -75,7 +75,7 @@ mvn install
 ```
 ### Run
 ```bash
-java -jar dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-*.jar
+java -Dspring.profiles.active=dev -jar dpppt-backend-sdk-ws/target/dpppt-backend-sdk-ws-*.jar
 ```
 ### Dockerfiles
 The dockerfile includes a base jdk image to run the jar. To actually build the docker container, you need to place the generated jar in the bin folder.
