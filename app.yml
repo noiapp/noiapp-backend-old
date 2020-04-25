@@ -22,3 +22,14 @@ services:
       - POSTGRES_DB=noiapp
       - POSTGRES_USER=noiapp
       - POSTGRES_PASSWORD=noiapp
+
+  noiapp-caddy:
+    build: noiapp-caddy
+    restart: unless-stopped
+    ports:
+      - 443:443
+    volumes:
+      - "/etc/letsencrypt/:/etc/letsencrypt/"
+    depends_on:
+      - noiapp-backend
+

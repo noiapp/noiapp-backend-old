@@ -1,0 +1,13 @@
+:443 {
+reverse_proxy 127.0.0.1:80
+  tls /etc/letsencrypt/live/protetti.app/fullchain.pem /etc/letsencrypt/live/protetti.app/privkey.pem
+handle_errors {
+    @404 {
+        expression {status} == 404
+    }
+    rewrite @404 404.html
+    file_server
+}
+
+}
+
