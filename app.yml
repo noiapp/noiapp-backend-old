@@ -22,3 +22,16 @@ services:
       - POSTGRES_DB=noiapp
       - POSTGRES_USER=noiapp
       - POSTGRES_PASSWORD=noiapp
+
+  noiapp-caddy:
+    build: caddy
+    restart: unless-stopped
+    #hostname: demo.protetti.app
+    ports:
+      - 443:443
+    volumes:
+      - "/etc/letsencrypt/:/etc/letsencrypt/"
+      - "/var/log/caddy/:/var/log/caddy/"
+    depends_on:
+      - noiapp-backend
+
