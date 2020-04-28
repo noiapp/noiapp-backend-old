@@ -2,6 +2,18 @@
 ![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)
 ![Java CI with Maven](https://github.com/noiapp/noiapp-backend/workflows/Java%20CI%20with%20Maven/badge.svg)
 
+## Dev Environment
+Quickly up and running?
+```
+docker-compose -f app-dev.yml up
+```
+From another terminal:
+```
+curl -k https://localhost/v1
+Hello from DP3T WS
+```
+read further documentation for details.
+
 ## Discussion and chat
 
 While daily chat is on slack, the discussion on core topics like architecture is on google groups.
