@@ -24,12 +24,13 @@ services:
       - POSTGRES_PASSWORD=noiapp
 
   noiapp-caddy:
-    build: caddy
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile-dev
     restart: unless-stopped
     ports:
       - 443:443
     volumes:
-      - "/etc/letsencrypt/:/etc/letsencrypt/"
       - "/var/log/caddy/:/var/log/caddy/"
     depends_on:
       - noiapp-backend

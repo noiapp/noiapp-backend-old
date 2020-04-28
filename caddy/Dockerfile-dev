@@ -1,5 +1,5 @@
 FROM caddy:latest
-ADD Caddyfile /etc/caddy/
-VOLUME ["/etc/letsencrypt/"]
+RUN apk update && apk add nss-tools
+ADD Caddyfile-dev /etc/caddy/Caddyfile
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
 
